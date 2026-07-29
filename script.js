@@ -146,12 +146,10 @@ function updateCustomDateTime() {
     
     if (dateStr && timeStr) {
         const [hours, minutes, seconds] = timeStr.split(':').map(Number);
-        const date = new Date(dateStr);
-        date.setHours(hours, minutes, seconds, 0);
+        const [year, month, day] = dateStr.split('-').map(Number);
         
         const localOffset = new Date().getTimezoneOffset() * 60000;
-        const targetOffset = currentTimezoneOffset * 3600000;
-        customDateTime = new Date(date.getTime() - targetOffset + localOffset);
+        customDateTime = new Date(Date.UTC(year, month - 1, day, hours, minutes, seconds) + localOffset);
         updateDisplay();
     }
 }

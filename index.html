@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>捷途纵横G700 - 工程模式密码陈列系统</title>
-    <link rel="stylesheet" href="styles.css?v=2">
+    <link rel="stylesheet" href="styles.css?v=4">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -19,6 +19,12 @@
             </div>
         </header>
 
+        <nav class="page-tabs">
+            <button class="page-tab active" data-page="realtime">实时密码</button>
+            <button class="page-tab" data-page="fixed">固定集合</button>
+        </nav>
+
+        <div id="page-realtime" class="page-content">
         <section class="time-settings-section">
             <div class="settings-card">
                 <div class="settings-header">
@@ -105,12 +111,24 @@
             <div class="passwords-grid" id="passwords-grid">
             </div>
         </section>
+        </div>
+
+        <div id="page-fixed" class="page-content" style="display:none;">
+            <section class="passwords-section">
+                <div class="section-header">
+                    <h2 class="section-title">固定时间密码集合</h2>
+                    <p class="section-desc">1月1日 0时 · 已去重</p>
+                </div>
+                <div class="passwords-grid" id="fixed-passwords-grid">
+                </div>
+            </section>
+        </div>
 
         <footer class="footer">
             <p>© 2026 Jetour G700 Engineering Mode Display System</p>
         </footer>
     </div>
 
-    <script src="script.js?v=3"></script>
+    <script src="script.js?v=4"></script>
 </body>
 </html>

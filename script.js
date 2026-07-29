@@ -68,6 +68,47 @@ function calculatePassword(mmddhh, hours, weight) {
     return `*#${password}#*`;
 }
 
+function renderFixedPasswords() {
+    const mmddhh = parseInt('010100');
+    const hours = '00';
+    const weights = generateWeightNumbers();
+    const grid = document.getElementById('fixed-passwords-grid');
+
+    const seen = new Set();
+    const uniquePasswords = [];
+
+    weights.forEach(weight => {
+        const password = calculatePassword(mmddhh, hours, weight);
+        if (!seen.has(password)) {
+            seen.add(password);
+            uniquePasswords.push({ password, weight });
+        }
+    });
+
+    let html = '';
+    uniquePasswords.forEach(item => {
+        const isCorrect = item.weight === CORRECT_WEIGHT || calculatePassword(mmddhh, hours, CORRECT_WEIGHT) === item.password;
+        html += `
+            <div class="password-card ${isCorrect ? 'correct' : ''}" data-password="${item.password}">
+                <div class="password-value">${item.password}</div>
+                <div class="password-hint">点击复制密码</div>
+            </div>
+        `;
+    });
+
+    grid.innerHTML = html;
+
+    grid.querySelectorAll('.password-card').forEach(card => {
+        card.addEventListener('click', function() {
+            const password = this.dataset.password;
+            navigator.clipboard.writeText(password).then(() => {
+                this.classList.add('copied');
+                setTimeout(() => { this.classList.remove('copied'); }, 2000);
+            }).catch(err => { console.error('复制失败:', err); });
+        });
+    });
+}
+
 function renderPasswords() {
     const dt = getCurrentDateTime();
     const weights = generateWeightNumbers();
@@ -157,6 +198,7 @@ function updateCustomDateTime() {
 document.addEventListener('DOMContentLoaded', function() {
     initCustomDateTime();
     updateDisplay();
+    renderFixedPasswords();
     
     let intervalId = setInterval(updateDisplay, 1000);
     
@@ -183,8 +225,8 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCustomDateTime();
     });
     
-    document.getElementById('date-input').addEventListener('input', updateCustomDateTime);
-    document.getElementById('time-input').addEventListener('input', updateCustomDateTime);
+    document.getElementById('date-input').addEventListener('change', updateCustomDateTime);
+    document.getElementById('time-input').addEventListener('change', updateCustomDateTime);
     
     document.getElementById('timezone-select').addEventListener('change', function() {
         currentTimezoneOffset = parseInt(this.value);
@@ -193,4 +235,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     document.getElementById('copy-btn').addEventListener('click', copyFinalPassword);
+
+    document.querySelectorAll('.page-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+
+            const pageId = this.dataset.page;
+            document.querySelectorAll('.page-content').forEach(p => p.style.display = 'none');
+            document.getElementById('page-' + pageId).style.display = 'block';
+        });
+    });
 });

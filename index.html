@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>捷途纵横G700 - 工程模式密码陈列系统</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <div class="logo-icon">G7</div>
+                <div class="logo-text">
+                    <h1>捷途纵横 G700</h1>
+                    <p>工程模式密码陈列系统</p>
+                </div>
+            </div>
+        </header>
+
+        <section class="time-settings-section">
+            <div class="settings-card">
+                <div class="settings-header">
+                    <h3>时间设置</h3>
+                    <div class="toggle-group">
+                        <button class="toggle-btn active" id="toggle-real-time">实时时间</button>
+                        <button class="toggle-btn" id="toggle-custom-time">自定义时间</button>
+                    </div>
+                </div>
+                
+                <div class="settings-body">
+                    <div class="time-display-row">
+                        <div class="display-label">当前使用时间</div>
+                        <div class="display-time">
+                            <span id="display-date">2026-07-13</span>
+                            <span class="time-separator">T</span>
+                            <span id="display-time">10:30:00</span>
+                            <span class="time-zone-badge">UTC+8</span>
+                        </div>
+                    </div>
+
+                    <div class="custom-controls" id="custom-controls">
+                        <div class="control-row">
+                            <label class="control-label">日期</label>
+                            <input type="date" id="date-input" class="time-input">
+                        </div>
+                        <div class="control-row">
+                            <label class="control-label">时间</label>
+                            <input type="time" id="time-input" class="time-input" step="1">
+                        </div>
+                        <div class="control-row">
+                            <label class="control-label">UTC时区</label>
+                            <select id="timezone-select" class="time-input">
+                                <option value="-12">UTC-12</option>
+                                <option value="-11">UTC-11</option>
+                                <option value="-10">UTC-10</option>
+                                <option value="-9">UTC-9</option>
+                                <option value="-8">UTC-8</option>
+                                <option value="-7">UTC-7</option>
+                                <option value="-6">UTC-6</option>
+                                <option value="-5">UTC-5</option>
+                                <option value="-4">UTC-4</option>
+                                <option value="-3">UTC-3</option>
+                                <option value="-2">UTC-2</option>
+                                <option value="-1">UTC-1</option>
+                                <option value="0">UTC±0</option>
+                                <option value="1">UTC+1</option>
+                                <option value="2">UTC+2</option>
+                                <option value="3">UTC+3</option>
+                                <option value="4">UTC+4</option>
+                                <option value="5">UTC+5</option>
+                                <option value="6">UTC+6</option>
+                                <option value="7">UTC+7</option>
+                                <option value="8" selected>UTC+8</option>
+                                <option value="9">UTC+9</option>
+                                <option value="10">UTC+10</option>
+                                <option value="11">UTC+11</option>
+                                <option value="12">UTC+12</option>
+                                <option value="13">UTC+13</option>
+                                <option value="14">UTC+14</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="result-section">
+            <div class="result-card">
+                <div class="result-label">当前工程模式密码</div>
+                <div class="result-value" id="final-password">*#49620#*</div>
+                <button class="copy-btn" id="copy-btn">
+                    <span class="copy-icon">📋</span>
+                    <span class="copy-text">复制密码</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="passwords-section">
+            <div class="section-header">
+                <h2 class="section-title">密码阵列</h2>
+                <p class="section-desc">总有一款适合你</p>
+            </div>
+            <div class="passwords-grid" id="passwords-grid">
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>© 2026 Jetour G700 Engineering Mode Display System</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -183,8 +183,8 @@ document.addEventListener('DOMContentLoaded', function() {
         updateCustomDateTime();
     });
     
-    document.getElementById('date-input').addEventListener('change', updateCustomDateTime);
-    document.getElementById('time-input').addEventListener('change', updateCustomDateTime);
+    document.getElementById('date-input').addEventListener('input', updateCustomDateTime);
+    document.getElementById('time-input').addEventListener('input', updateCustomDateTime);
     
     document.getElementById('timezone-select').addEventListener('change', function() {
         currentTimezoneOffset = parseInt(this.value);

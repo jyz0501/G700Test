@@ -65,7 +65,12 @@ function calculatePassword(mmddhh, hours, weight) {
     const product = mmddhh * weight;
     const lastSix = parseInt(String(product).slice(-6));
     const password = lastSix - parseInt(hours);
-    return `*#${password}#*`;
+    return `*#${String(password).padStart(6, '0')}#*`;
+}
+
+function formatWeightDate(weight) {
+    const s = String(weight);
+    return `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}`;
 }
 
 function renderFixedPasswords() {
@@ -91,17 +96,13 @@ function renderFixedPasswords() {
         html += `
             <div class="password-card ${isCorrect ? 'correct' : ''}" data-password="${item.password}">
                 <div class="password-value">${item.password}</div>
+                <div class="password-weight">${formatWeightDate(item.weight)}</div>
                 <div class="password-hint">点击复制密码</div>
             </div>
         `;
     });
 
     grid.innerHTML = html;
-
-    const fixedDateEl = document.getElementById('fixed-array-date');
-    if (fixedDateEl) {
-        fixedDateEl.textContent = '阵列计算时间 01-01 00:00:00';
-    }
 
     grid.querySelectorAll('.password-card').forEach(card => {
         card.addEventListener('click', function() {
@@ -126,6 +127,7 @@ function renderPasswords() {
         html += `
             <div class="password-card ${isCorrect ? 'correct' : ''}" data-password="${password}" data-index="${index}">
                 <div class="password-value">${password}</div>
+                <div class="password-weight">${formatWeightDate(weight)}</div>
                 <div class="password-hint">点击复制密码</div>
             </div>
         `;
@@ -156,11 +158,6 @@ function updateDisplay() {
     
     const tzSign = currentTimezoneOffset >= 0 ? '+' : '';
     document.querySelector('.time-zone-badge').textContent = `UTC${tzSign}${currentTimezoneOffset}`;
-    
-    const arrayDateEl = document.getElementById('array-date');
-    if (arrayDateEl) {
-        arrayDateEl.textContent = `阵列计算时间 ${dt.dateStr} ${dt.timeStr} · UTC${tzSign}${currentTimezoneOffset}`;
-    }
     
     const password = calculatePassword(dt.mmddhh, dt.hours, CORRECT_WEIGHT);
     document.getElementById('final-password').textContent = password;

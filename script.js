@@ -98,6 +98,11 @@ function renderFixedPasswords() {
 
     grid.innerHTML = html;
 
+    const fixedDateEl = document.getElementById('fixed-array-date');
+    if (fixedDateEl) {
+        fixedDateEl.textContent = '阵列计算时间 01-01 00:00:00';
+    }
+
     grid.querySelectorAll('.password-card').forEach(card => {
         card.addEventListener('click', function() {
             const password = this.dataset.password;
@@ -151,6 +156,11 @@ function updateDisplay() {
     
     const tzSign = currentTimezoneOffset >= 0 ? '+' : '';
     document.querySelector('.time-zone-badge').textContent = `UTC${tzSign}${currentTimezoneOffset}`;
+    
+    const arrayDateEl = document.getElementById('array-date');
+    if (arrayDateEl) {
+        arrayDateEl.textContent = `阵列计算时间 ${dt.dateStr} ${dt.timeStr} · UTC${tzSign}${currentTimezoneOffset}`;
+    }
     
     const password = calculatePassword(dt.mmddhh, dt.hours, CORRECT_WEIGHT);
     document.getElementById('final-password').textContent = password;
